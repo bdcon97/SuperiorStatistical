@@ -1262,19 +1262,6 @@
     }
   });
 
-  /* Form */
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('button[type=submit]');
-    btn.textContent = 'Sending…';
-    btn.disabled = true;
-    setTimeout(() => {
-      btn.textContent = 'Enquiry Sent ✓';
-      btn.style.background = '#4ecdc4';
-      btn.style.color = 'var(--navy)';
-    }, 1200);
-  }
-
   /* Smooth scroll */
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', e => {
