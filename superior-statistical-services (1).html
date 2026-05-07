@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Superior Statistical Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #112240;
+    --navy-light: #1e3a5f;
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --cream: #f8f4ec;
+    --cream-dark: #ede8db;
+    --white: #ffffff;
+    --text-muted: #8a9bb5;
+    --text-body: #d0d9e8;
+    --accent-teal: #4ecdc4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--text-body);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ---- NAV ---- */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 6%;
+    background: rgba(10, 22, 40, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .logo-mark {
+    width: 38px;
+    height: 38px;
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: -1px;
+  }
+
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--white);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .logo-text span {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.65rem;
+    color: var(--gold);
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+
+  nav a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold) !important;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.8rem !important;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: background 0.2s, color 0.2s !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--gold) !important;
+    color: var(--navy) !important;
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 6% 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201, 168, 76, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201, 168, 76, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: 10%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(78, 205, 196, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    max-width: 700px;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    padding: 0.85rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-body);
+    border: 1px solid rgba(208, 217, 232, 0.25);
+    padding: 0.85rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* ---- STATS BAR ---- */
+  .stats-bar {
+    padding: 3.5rem 6%;
+    border-top: 1px solid rgba(201, 168, 76, 0.12);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    background: rgba(17, 34, 64, 0.6);
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 0 1rem;
+    border-right: 1px solid rgba(201, 168, 76, 0.1);
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--gold);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ---- SECTION COMMON ---- */
+  section { padding: 6rem 6%; }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    color: var(--white);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-lead {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    max-width: 560px;
+    line-height: 1.8;
+  }
+
+  /* ---- SERVICES ---- */
+  #services { background: var(--navy-mid); }
+
+  .services-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    margin-bottom: 4rem;
+  }
+
+  .services-note {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    border-left: 2px solid var(--gold);
+    padding-left: 1rem;
+    line-height: 1.8;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: rgba(201, 168, 76, 0.1);
+  }
+
+  .service-card {
+    background: var(--navy-mid);
+    padding: 2.5rem 2rem;
+    transition: background 0.3s;
+    cursor: default;
+  }
+
+  .service-card:hover { background: var(--navy-light); }
+
+  .service-icon {
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 1rem;
+    color: var(--gold);
+  }
+
+  .service-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--white);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .service-card p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  /* ---- APPROACH ---- */
+  #approach {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .approach-visual {
+    position: relative;
+    height: 420px;
+  }
+
+  .approach-chart {
+    position: absolute;
+    inset: 0;
+    background: var(--navy-mid);
+    border: 1px solid rgba(201, 168, 76, 0.15);
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem 2rem 3rem;
+    gap: 1.5rem;
+  }
+
+  .bar {
+    flex: 1;
+    background: rgba(201, 168, 76, 0.15);
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .bar:hover { background: rgba(201, 168, 76, 0.35); }
+
+  .bar::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .bar-fill {
+    width: 100%;
+    background: linear-gradient(to top, var(--gold), rgba(201, 168, 76, 0.4));
+    position: absolute;
+    bottom: 0;
+  }
+
+  .bar-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gold);
+  }
+
+  .approach-label {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .approach-steps { margin-top: 2rem; }
+
+  .step {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    gap: 1.25rem;
+    align-items: start;
+    margin-bottom: 2rem;
+  }
+
+  .step-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--gold);
+    padding-top: 0.2rem;
+    border-top: 1px solid var(--gold);
+  }
+
+  .step h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--white);
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+
+  .step p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; }
+
+  /* ---- INDUSTRIES ---- */
+  #industries { background: var(--navy-mid); }
+
+  .industries-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    margin-bottom: 3.5rem;
+  }
+
+  .industries-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .industry-item {
+    padding: 1.75rem 1.5rem;
+    border: 1px solid rgba(201, 168, 76, 0.1);
+    transition: border-color 0.3s, background 0.3s;
+    cursor: default;
+  }
+
+  .industry-item:hover {
+    border-color: rgba(201, 168, 76, 0.4);
+    background: rgba(201, 168, 76, 0.04);
+  }
+
+  .industry-code {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .industry-item h4 {
+    font-size: 0.9rem;
+    color: var(--white);
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+
+  .industry-item p {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ---- TESTIMONIALS ---- */
+  #testimonials {
+    text-align: center;
+  }
+
+  .testimonials-header { margin-bottom: 3.5rem; }
+  .testimonials-header .section-lead { margin: 0 auto; }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .testimonial-card {
+    text-align: left;
+    padding: 2rem;
+    background: var(--navy-mid);
+    border: 1px solid rgba(201, 168, 76, 0.1);
+    position: relative;
+  }
+
+  .testimonial-card::before {
+    content: '\201C';
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    color: rgba(201, 168, 76, 0.12);
+    line-height: 1;
+  }
+
+  .testimonial-text {
+    font-size: 0.9rem;
+    color: var(--text-body);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .author-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--navy-light);
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gold);
+  }
+
+  .author-name {
+    font-size: 0.875rem;
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  .author-role {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  /* ---- CONTACT ---- */
+  #contact { background: var(--navy-mid); }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .contact-info h2 { margin-bottom: 1rem; }
+
+  .contact-details { margin-top: 2.5rem; }
+
+  .contact-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .contact-item-icon {
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(201, 168, 76, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+
+  .contact-item-text {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .contact-item-text strong {
+    display: block;
+    color: var(--white);
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+  }
+
+  input, select, textarea {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(208, 217, 232, 0.12);
+    color: var(--white);
+    padding: 0.75rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: rgba(201, 168, 76, 0.5);
+  }
+
+  select option { background: var(--navy-mid); }
+
+  textarea { resize: vertical; min-height: 120px; }
+
+  .form-submit {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    border-top: 1px solid rgba(201, 168, 76, 0.12);
+    padding: 3rem 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  .footer-brand span {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-top: 0.25rem;
+    letter-spacing: 0.05em;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  .footer-copy {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 900px) {
+    nav ul { display: none; }
+    .services-intro, .services-grid, #approach, .industries-header,
+    .testimonials-grid, .contact-inner { grid-template-columns: 1fr; }
+    .industries-list { grid-template-columns: repeat(2, 1fr); }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .stat-item:nth-child(2) { border-right: none; }
+    .approach-visual { height: 280px; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-mark">S³</div>
+    <div class="logo-text">Superior Statistical
+      <span>Services</span>
+    </div>
+  </a>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#testimonials">Clients</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Data Analytics &amp; Research Consulting</div>
+    <h1>Turning Raw Data into<br><em>Decisive Intelligence</em></h1>
+    <p class="hero-desc">Superior Statistical Services provides rigorous statistical analysis, modelling, and research consulting to organisations that demand precision, clarity, and actionable insight.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Start a Conversation</a>
+      <a href="#services" class="btn-secondary">Our Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-number">20+</div>
+    <div class="stat-label">Years of Experience</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">350+</div>
+    <div class="stat-label">Projects Delivered</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">98%</div>
+    <div class="stat-label">Client Retention</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">14</div>
+    <div class="stat-label">Industry Sectors</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-intro">
+    <div>
+      <span class="section-tag">What We Do</span>
+      <h2>Statistical Services Built for Complexity</h2>
+    </div>
+    <p class="services-note">From exploratory data analysis to advanced predictive modelling, our work is grounded in mathematical rigour and delivered with practical clarity for decision-makers at every level.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">∑</div>
+      <h3>Statistical Analysis</h3>
+      <p>Descriptive and inferential statistics, hypothesis testing, ANOVA, regression, and multivariate analysis tailored to your research questions.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">◈</div>
+      <h3>Predictive Modelling</h3>
+      <p>Machine learning, forecasting, time-series analysis, and risk modelling to anticipate outcomes and optimise decision-making.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">≡</div>
+      <h3>Survey Design &amp; Analysis</h3>
+      <p>Expert questionnaire design, sampling strategy, weighting, and full statistical analysis of survey data at any scale.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">⌬</div>
+      <h3>Research Consulting</h3>
+      <p>End-to-end support for academic and corporate research — from study design and power analysis through to peer-review-ready reporting.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">⊛</div>
+      <h3>Data Visualisation</h3>
+      <p>Interactive dashboards and publication-quality charts that communicate statistical findings to technical and non-technical audiences alike.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">∮</div>
+      <h3>Expert Witnessing</h3>
+      <p>Credible, court-ready statistical evidence and expert testimony for litigation, regulatory proceedings, and dispute resolution.</p>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section id="approach" style="padding: 6rem 6%;">
+  <div class="approach-visual">
+    <div class="approach-chart">
+      <span class="approach-label">Sample Output — Quarterly Variance Analysis</span>
+      <div class="bar" data-label="Q1">
+        <div class="bar-fill" style="height: 55%;"></div>
+        <div class="bar-line"></div>
+      </div>
+      <div class="bar" data-label="Q2">
+        <div class="bar-fill" style="height: 72%;"></div>
+        <div class="bar-line"></div>
+      </div>
+      <div class="bar" data-label="Q3">
+        <div class="bar-fill" style="height: 48%;"></div>
+        <div class="bar-line"></div>
+      </div>
+      <div class="bar" data-label="Q4">
+        <div class="bar-fill" style="height: 88%;"></div>
+        <div class="bar-line"></div>
+      </div>
+      <div class="bar" data-label="YTD">
+        <div class="bar-fill" style="height: 65%;"></div>
+        <div class="bar-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="approach-content">
+    <span class="section-tag">How We Work</span>
+    <h2>Rigour at Every Stage of the Analysis</h2>
+    <p class="section-lead">We believe great statistical work demands as much rigour in communication as in computation.</p>
+
+    <div class="approach-steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div>
+          <h4>Discovery &amp; Scoping</h4>
+          <p>We invest time understanding your objectives, data landscape, and the decisions the analysis must inform.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div>
+          <h4>Data Preparation</h4>
+          <p>Cleaning, validation, and transformation with full audit trails — because the quality of analysis depends on the quality of data.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div>
+          <h4>Analysis &amp; Modelling</h4>
+          <p>Selecting and applying the most appropriate statistical methods, with transparent assumptions and sensitivity testing throughout.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div>
+          <h4>Reporting &amp; Presentation</h4>
+          <p>Clear, structured reports and presentations that translate statistical findings into actionable intelligence for your team.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section id="industries">
+  <div class="industries-header">
+    <div>
+      <span class="section-tag">Who We Serve</span>
+      <h2>Deep Expertise Across Key Sectors</h2>
+    </div>
+    <p class="section-lead">We bring sector-specific knowledge to every engagement, ensuring our statistical approach accounts for the nuances of your industry.</p>
+  </div>
+
+  <div class="industries-list">
+    <div class="industry-item">
+      <span class="industry-code">SEC.01</span>
+      <h4>Healthcare &amp; Pharma</h4>
+      <p>Clinical trials, epidemiology, health outcomes research and regulatory submissions.</p>
+    </div>
+    <div class="industry-item">
+      <span class="industry-code">SEC.02</span>
+      <h4>Finance &amp; Insurance</h4>
+      <p>Risk modelling, actuarial analysis, portfolio optimisation and fraud detection.</p>
+    </div>
+    <div class="industry-item">
+      <span class="industry-code">SEC.03</span>
+      <h4>Government &amp; Policy</h4>
+      <p>Census analysis, programme evaluation, economic modelling and public reporting.</p>
+    </div>
+    <div class="industry-item">
+      <span class="industry-code">SEC.04</span>
+      <h4>Education &amp; Research</h4>
+      <p>Psychometrics, longitudinal studies, meta-analysis and academic publication support.</p>
+    </div>
+    <div class="industry-item">
+      <span class="industry-code">SEC.05</span>
+      <h4>Retail &amp; Consumer</h4>
+      <p>Demand forecasting, customer segmentation, A/B testing and pricing analysis.</p>
+    </div>
+    <div class="industry-item">
+      <span class="industry-code">SEC.06</span>
+      <h4>Technology &amp; SaaS</h4>
+      <p>Product analytics, user behaviour modelling and growth forecasting.</p>
+    </div>
+    <div class="industry-item">
+      <span class="industry-code">SEC.07</span>
+      <h4>Legal &amp; Compliance</h4>
+      <p>Expert witnessing, damages quantification and regulatory compliance analytics.</p>
+    </div>
+    <div class="industry-item">
+      <span class="industry-code">SEC.08</span>
+      <h4>Not-for-Profit</h4>
+      <p>Impact evaluation, grant reporting, social research and stakeholder surveys.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testimonials-header">
+    <span class="section-tag">Client Feedback</span>
+    <h2>Trusted by Organisations That Demand Precision</h2>
+    <p class="section-lead">What our clients say about working with Superior Statistical Services.</p>
+  </div>
+
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <p class="testimonial-text">The team's ability to distil complex survival analysis into a narrative our board could act on was genuinely impressive. The final report stood up to intense regulatory scrutiny.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">DM</div>
+        <div>
+          <div class="author-name">Dr. D. Morrison</div>
+          <div class="author-role">Head of Clinical Affairs, BioMedica</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-text">We engaged SSS for an expert witness matter involving insurance fraud. Their statistical evidence was airtight and proved decisive in the court proceedings.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">SK</div>
+        <div>
+          <div class="author-name">S. Krishnamurthy</div>
+          <div class="author-role">Senior Partner, Apex Legal Group</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <p class="testimonial-text">From survey design to final dashboard, the project was handled with exceptional care. The insights reshaped our product roadmap and led directly to a 23% uplift in retention.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">TW</div>
+        <div>
+          <div class="author-name">T. Whitfield</div>
+          <div class="author-role">Chief Product Officer, Nexara Technologies</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <span class="section-tag">Get in Touch</span>
+      <h2>Let's Discuss Your Project</h2>
+      <p class="section-lead">Whether you have a defined brief or are still scoping the problem, we're happy to start with a no-obligation conversation.</p>
+
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-item-icon">✉</div>
+          <div class="contact-item-text">
+            <strong>Email</strong>
+            info@superiorstatistical.com.au
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">✆</div>
+          <div class="contact-item-text">
+            <strong>Phone</strong>
+            +61 (0)8 8000 0000
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">◎</div>
+          <div class="contact-item-text">
+            <strong>Location</strong>
+            Adelaide, South Australia &amp; available nationally
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">◷</div>
+          <div class="contact-item-text">
+            <strong>Response Time</strong>
+            We respond to all enquiries within one business day.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" placeholder="Jane">
+        </div>
+        <div class="form-field">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" placeholder="Smith">
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="jane@organisation.com">
+      </div>
+      <div class="form-field">
+        <label for="org">Organisation</label>
+        <input type="text" id="org" placeholder="Your company or institution">
+      </div>
+      <div class="form-field">
+        <label for="service">Service of Interest</label>
+        <select id="service">
+          <option value="" disabled selected>Select a service…</option>
+          <option>Statistical Analysis</option>
+          <option>Predictive Modelling</option>
+          <option>Survey Design &amp; Analysis</option>
+          <option>Research Consulting</option>
+          <option>Data Visualisation</option>
+          <option>Expert Witnessing</option>
+          <option>Other / Not Sure</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="message">Tell Us About Your Project</label>
+        <textarea id="message" placeholder="Briefly describe your data, your questions, and your timeline…"></textarea>
+      </div>
+      <div class="form-submit">
+        <button type="submit" class="btn-primary">Send Enquiry</button>
+        <span style="font-size: 0.78rem; color: var(--text-muted);">We'll respond within one business day.</span>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    Superior Statistical Services
+    <span>Precision Analysis. Clear Insight. Sound Decisions.</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Superior Statistical Services. All rights reserved.</div>
+</footer>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type=submit]');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'Enquiry Sent ✓';
+      btn.style.background = '#4ecdc4';
+      btn.style.color = 'var(--navy)';
+    }, 1200);
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
