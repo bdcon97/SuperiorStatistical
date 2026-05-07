@@ -8,6 +8,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+<link rel="manifest" href="/site.webmanifest">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Superior Statistical Services</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1077,6 +1078,8 @@
   action="https://formspree.io/f/xwvyqrdg"
   method="POST"
 >
+    <input type="hidden" name="_next" value="https://superiorstatistical.com.au?submitted=true">
+     <input type="text" name="_gotcha" style="display:none">
       <div class="form-row">
         <div class="form-field">
           <label for="fname">First Name</label>
@@ -1093,7 +1096,7 @@
       </div>
       <div class="form-field">
         <label for="org">Organisation</label>
-        <input type="text" id="org" name="organisation" placeholder="Your company or institution">>
+        <input type="text" id="org" name="organisation" placeholder="Your company or institution">
       </div>
       <div class="form-field">
         <label for="service">Service of Interest</label>
