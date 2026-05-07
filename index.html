@@ -1066,28 +1066,32 @@
       </div>
     </div>
 
-    <form class="contact-form" onsubmit="handleSubmit(event)">
+   <form 
+  class="contact-form"
+  action="https://formspree.io/f/xwvyqrdg"
+  method="POST"
+>
       <div class="form-row">
         <div class="form-field">
           <label for="fname">First Name</label>
-          <input type="text" id="fname" placeholder="Jane">
+          <input type="text" id="fname" name="first_name" placeholder="Jane">
         </div>
         <div class="form-field">
           <label for="lname">Last Name</label>
-          <input type="text" id="lname" placeholder="Smith">
+          <input type="text" id="lname" name="last_name" placeholder="Smith">
         </div>
       </div>
       <div class="form-field">
         <label for="email">Email Address</label>
-        <input type="email" id="email" placeholder="jane@organisation.com">
+      <input type="email" id="email" name="email" placeholder="jane@organisation.com">
       </div>
       <div class="form-field">
         <label for="org">Organisation</label>
-        <input type="text" id="org" placeholder="Your company or institution">
+        <input type="text" id="org" name="organisation" placeholder="Your company or institution">>
       </div>
       <div class="form-field">
         <label for="service">Service of Interest</label>
-        <select id="service">
+        <select id="service" name="service">
           <option value="" disabled selected>Select a service…</option>
           <option>Statistical Analysis</option>
           <option>Predictive Modelling</option>
@@ -1100,7 +1104,7 @@
       </div>
       <div class="form-field">
         <label for="message">Tell Us About Your Project</label>
-        <textarea id="message" placeholder="Briefly describe your data, your questions, and your timeline…"></textarea>
+        <textarea id="message" name="message" placeholder="Briefly describe your data, your questions, and your timeline…"></textarea>
       </div>
       <div class="form-submit">
         <button type="submit" class="btn-primary">Send Enquiry</button>
