@@ -11,1174 +11,865 @@
 <link rel="manifest" href="/site.webmanifest" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="Superior Statistical Services provides rigorous statistical analysis, modelling, and research consulting to organisations across Australia.">
+<meta name="theme-color" content="#f5f3ee" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0b111c" media="(prefers-color-scheme: dark)" />
 <title>Superior Statistical Services</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --navy: #0a1628;
-    --navy-mid: #112240;
-    --navy-light: #1e3a5f;
-    --gold: #c9a84c;
-    --gold-light: #e8c96a;
-    --cream: #f8f4ec;
-    --cream-dark: #ede8db;
-    --white: #ffffff;
-    --text-muted: #8a9bb5;
-    --text-body: #d0d9e8;
-    --accent-teal: #4ecdc4;
+    --bg: #f5f3ee;
+    --ink: #0e1626;
+    --ink-soft: #3d4658;
+    --muted: #6b7385;
+    --line: rgba(14, 22, 38, 0.12);
+    --line-strong: rgba(14, 22, 38, 0.28);
+    --accent: #a37b1f;
+    --accent-soft: rgba(163, 123, 31, 0.14);
+    --band: rgba(163, 123, 31, 0.2);
+    --point: #1f7a74;
+    --field: rgba(14, 22, 38, 0.03);
+
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'Geist', system-ui, -apple-system, sans-serif;
+    --mono: 'Geist Mono', ui-monospace, monospace;
+
+    --gutter: clamp(1rem, 5vw, 5rem);
+    --max: 1320px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b111c;
+      --ink: #eef0f4;
+      --ink-soft: #c3c9d4;
+      --muted: #8a93a6;
+      --line: rgba(238, 240, 244, 0.1);
+      --line-strong: rgba(238, 240, 244, 0.26);
+      --accent: #d6b25e;
+      --accent-soft: rgba(214, 178, 94, 0.16);
+      --band: rgba(214, 178, 94, 0.24);
+      --point: #5fcfc5;
+      --field: rgba(238, 240, 244, 0.04);
+    }
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--navy);
-    color: var(--text-body);
-    line-height: 1.7;
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
 
+  /* Soft ambient wash behind the whole page — one continuous canvas, no bands */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: -20vh -20vw auto auto;
+    width: 70vw;
+    height: 70vw;
+    background: radial-gradient(closest-side, var(--accent-soft), transparent);
+    filter: blur(40px);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  a { color: inherit; }
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  .wrap {
+    width: 100%;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  em.serif, .serif-em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+
   /* NAV */
-  nav {
+  .nav {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
+    transition: background 0.3s, border-color 0.3s;
+    border-bottom: 1px solid transparent;
+  }
+
+  .nav.scrolled {
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom-color: var(--line);
+  }
+
+  .nav .wrap {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1.2rem 6%;
-    background: rgba(10, 22, 40, 0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+    justify-content: space-between;
+    height: 4.5rem;
   }
 
   .logo {
     display: flex;
-    align-items: center;
-    gap: 12px;
+    align-items: baseline;
+    gap: 0.6rem;
     text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
   }
 
   .logo-mark {
-    width: 38px;
-    height: 38px;
-    border: 2px solid var(--gold);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    color: var(--gold);
-    letter-spacing: -1px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.6rem;
+    color: var(--accent);
+    line-height: 1;
   }
 
-  .logo-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    color: var(--white);
-    font-weight: 600;
-    line-height: 1.2;
-  }
-
-  .logo-text span {
-    display: block;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.65rem;
-    color: var(--gold);
-    font-weight: 400;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-  }
-
-  nav ul {
+  .nav-links {
     list-style: none;
     display: flex;
-    gap: 2.5rem;
     align-items: center;
+    gap: 2.25rem;
   }
 
-  nav a {
+  .nav-links a {
     text-decoration: none;
-    color: var(--text-muted);
     font-size: 0.875rem;
-    font-weight: 400;
-    letter-spacing: 0.03em;
+    color: var(--ink-soft);
     transition: color 0.2s;
   }
 
-  nav a:hover { color: var(--gold); }
+  .nav-links a:hover { color: var(--ink); }
 
-  .nav-cta {
-    background: transparent;
-    border: 1px solid var(--gold);
-    color: var(--gold) !important;
-    padding: 0.5rem 1.25rem;
-    font-size: 0.8rem !important;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: background 0.2s, color 0.2s !important;
+  .nav-links .nav-cta {
+    color: var(--bg);
+    background: var(--ink);
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    transition: background 0.2s, color 0.2s;
   }
 
-  .nav-cta:hover {
-    background: var(--gold) !important;
-    color: var(--navy) !important;
+  .nav-links .nav-cta:hover { background: var(--accent); color: var(--bg); }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--ink);
+    font: 500 0.85rem var(--sans);
+    cursor: pointer;
+    padding: 0.5rem 0;
   }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.95rem 1.6rem;
+    border-radius: 999px;
+    font: 500 0.92rem var(--sans);
+    text-decoration: none;
+    border: 1px solid var(--ink);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+  }
+
+  .btn-solid { background: var(--ink); color: var(--bg); }
+  .btn-solid:hover { background: var(--accent); border-color: var(--accent); }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+  .btn-ghost:hover { border-color: var(--ink); }
+  .btn .arrow { transition: transform 0.2s; }
+  .btn:hover .arrow { transform: translateX(3px); }
+  .btn:disabled { opacity: 0.6; cursor: wait; }
 
   /* HERO */
   .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 8rem 6% 5rem;
-    position: relative;
-    overflow: hidden;
+    padding-top: clamp(8rem, 18vh, 12rem);
+    padding-bottom: 2rem;
   }
 
-  .hero-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(201, 168, 76, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(201, 168, 76, 0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
+  .hero h1 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: clamp(2.6rem, 8.2vw, 7.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    max-width: 14ch;
   }
 
-  .hero-glow {
-    position: absolute;
-    top: 10%;
-    right: -10%;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(ellipse, rgba(78, 205, 196, 0.06) 0%, transparent 70%);
-    pointer-events: none;
+  .hero h1 .serif-em {
+    letter-spacing: -0.02em;
+    font-size: 1.08em;
   }
 
-  .hero-content {
-    position: relative;
-    max-width: 700px;
-  }
-
-  .hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--gold);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-  }
-
-  .hero-eyebrow::before {
-    content: '';
-    display: block;
-    width: 30px;
-    height: 1px;
-    background: var(--gold);
-  }
-
-  h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1.15;
-    margin-bottom: 1.5rem;
-  }
-
-  h1 em {
-    font-style: normal;
-    color: var(--gold);
+  .hero-foot {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem 4rem;
+    align-items: end;
+    margin-top: clamp(2rem, 5vw, 3.5rem);
   }
 
   .hero-desc {
-    font-size: 1.1rem;
-    color: var(--text-muted);
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    color: var(--ink-soft);
+    max-width: 46ch;
     font-weight: 300;
-    max-width: 520px;
-    margin-bottom: 2.5rem;
-    line-height: 1.8;
   }
 
-  .hero-actions {
+  .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+  /* CHART — unboxed, full-width figure */
+  .figure { margin-top: clamp(3rem, 7vw, 5.5rem); }
+
+  .figure-meta {
     display: flex;
-    gap: 1rem;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem 2rem;
     flex-wrap: wrap;
+    padding-bottom: 1rem;
   }
 
-  .btn-primary {
-    background: var(--gold);
-    color: var(--navy);
-    border: none;
-    padding: 0.85rem 2rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: background 0.2s, transform 0.15s;
+  .figure-stats {
+    display: flex;
+    gap: 0.4rem 1.5rem;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--muted);
   }
 
-  .btn-primary:hover {
-    background: var(--gold-light);
-    transform: translateY(-1px);
+  .figure-stats b { font-weight: 500; color: var(--ink); }
+
+  .chart-wrap {
+    position: relative;
+    height: clamp(260px, 38vw, 440px);
   }
 
-  .btn-secondary {
-    background: transparent;
-    color: var(--text-body);
-    border: 1px solid rgba(208, 217, 232, 0.25);
-    padding: 0.85rem 2rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 400;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: border-color 0.2s, color 0.2s;
+  .figure-legend {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding-top: 0.75rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
   }
 
-  .btn-secondary:hover {
-    border-color: var(--gold);
-    color: var(--gold);
-  }
+  .figure-legend span { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .key-line { width: 18px; height: 2px; background: var(--accent); }
+  .key-band { width: 14px; height: 10px; background: var(--band); border-radius: 2px; }
+  .key-dot { width: 7px; height: 7px; background: var(--point); border-radius: 50%; }
 
-  /* STATS BAR */
-  .stats-bar {
-    padding: 3.5rem 6%;
-    border-top: 1px solid rgba(201, 168, 76, 0.12);
-    border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+  /* STATS — inline numerals, no dividers */
+  .stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
-    background: rgba(17, 34, 64, 0.6);
+    padding: clamp(4rem, 9vw, 7rem) 0;
   }
 
-  .stat-item {
-    text-align: center;
-    padding: 0 1rem;
-    border-right: 1px solid rgba(201, 168, 76, 0.1);
-  }
-
-  .stat-item:last-child { border-right: none; }
-
-  .stat-number {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    color: var(--gold);
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: 0.4rem;
-  }
-
-  .stat-label {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  /* SECTION COMMON */
-  section { padding: 6rem 6%; }
-
-  .section-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--gold);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 0.75rem;
-    display: block;
-  }
-
-  h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 3vw, 2.6rem);
-    color: var(--white);
-    font-weight: 600;
-    line-height: 1.2;
-    margin-bottom: 1.2rem;
-  }
-
-  .section-lead {
-    font-size: 1.05rem;
-    color: var(--text-muted);
-    font-weight: 300;
-    max-width: 560px;
-    line-height: 1.8;
-  }
-
-  /* SERVICES */
-  #services { background: var(--navy-mid); }
-
-  .services-intro {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: end;
-    margin-bottom: 4rem;
-  }
-
-  .services-note {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    border-left: 2px solid var(--gold);
-    padding-left: 1rem;
-    line-height: 1.8;
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5px;
-    background: rgba(201, 168, 76, 0.1);
-  }
-
-  .service-card {
-    background: var(--navy-mid);
-    padding: 2.5rem 2rem;
-    transition: background 0.3s;
-    cursor: default;
-  }
-
-  .service-card:hover { background: var(--navy-light); }
-
-  .service-icon {
-    width: 42px;
-    height: 42px;
-    border: 1px solid rgba(201, 168, 76, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 1rem;
-    color: var(--gold);
-  }
-
-  .service-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.15rem;
-    color: var(--white);
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-  }
-
-  .service-card p {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    line-height: 1.75;
-  }
-
-  /* APPROACH */
-  #approach {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
-    padding: 6rem 6%;
-  }
-
-  .approach-visual { position: relative; }
-
-  .regression-panel {
-    background: var(--navy-mid);
-    border: 1px solid rgba(201, 168, 76, 0.15);
-    overflow: hidden;
-  }
-
-  .regression-header {
-    padding: 14px 18px 10px;
-    border-bottom: 1px solid rgba(201, 168, 76, 0.1);
-  }
-
-  .regression-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    color: var(--gold);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  .regression-stats {
-    display: flex;
-    gap: 20px;
-    margin-top: 8px;
-    flex-wrap: wrap;
-  }
-
-  .regression-stats span {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--text-muted);
-  }
-
-  .regression-stats span em {
-    font-style: normal;
-    color: var(--gold);
+  .stat-num {
+    font-size: clamp(2.6rem, 5.5vw, 4.5rem);
     font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
   }
 
-  .chart-canvas-wrap {
-    position: relative;
-    width: 100%;
-    height: 300px;
+  .stat-num sup {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    font-size: 0.55em;
+    vertical-align: 0.7em;
+    margin-left: 0.05em;
   }
 
-  .regression-legend {
-    display: flex;
-    gap: 18px;
-    padding: 10px 18px 14px;
-    border-top: 1px solid rgba(201, 168, 76, 0.08);
-  }
+  .stat-label { margin-top: 0.75rem; font-size: 0.9rem; color: var(--muted); }
 
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--text-muted);
-  }
-
-  .legend-line {
-    width: 20px;
-    height: 2px;
-    background: var(--gold);
-  }
-
-  .legend-band {
-    width: 14px;
-    height: 10px;
-    background: rgba(201, 168, 76, 0.2);
-    border: 1px solid rgba(201, 168, 76, 0.35);
-    border-radius: 2px;
-  }
-
-  .legend-dot {
-    width: 8px;
-    height: 8px;
-    background: #4ecdc4;
-    border-radius: 50%;
-  }
-
-  .approach-steps { margin-top: 2rem; }
-
-  .step {
+  /* CHAPTERS — sticky heading on the left, content flowing on the right */
+  .chapter {
     display: grid;
-    grid-template-columns: 42px 1fr;
-    gap: 1.25rem;
-    align-items: start;
-    margin-bottom: 2rem;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: 2rem clamp(2rem, 6vw, 6rem);
+    padding: clamp(4rem, 9vw, 8rem) 0;
   }
 
-  .step-num {
-    font-family: 'DM Mono', monospace;
+  .chapter-head { align-self: start; position: sticky; top: 7rem; }
+
+  .chapter-head h2 {
+    font-weight: 500;
+    font-size: clamp(2rem, 3.8vw, 3.2rem);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    margin-top: 1rem;
+  }
+
+  .chapter-head p {
+    margin-top: 1.25rem;
+    color: var(--ink-soft);
+    font-weight: 300;
+    max-width: 36ch;
+  }
+
+  /* Services — editorial index */
+  .index { list-style: none; counter-reset: svc; }
+
+  .index li {
+    counter-increment: svc;
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr) minmax(0, 1.3fr);
+    gap: 0.5rem 2rem;
+    align-items: baseline;
+    padding: 2rem 0;
+    border-top: 1px solid var(--line);
+    transition: padding-left 0.35s cubic-bezier(.2,.7,.2,1);
+  }
+
+  .index li:last-child { border-bottom: 1px solid var(--line); }
+
+  .index li::before {
+    content: counter(svc, decimal-leading-zero);
+    font-family: var(--mono);
     font-size: 0.75rem;
-    color: var(--gold);
-    padding-top: 0.2rem;
-    border-top: 1px solid var(--gold);
+    color: var(--muted);
   }
 
-  .step h4 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    color: var(--white);
-    font-weight: 600;
-    margin-bottom: 0.35rem;
+  .index h3 {
+    font-weight: 500;
+    font-size: clamp(1.3rem, 2.1vw, 1.75rem);
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    transition: color 0.25s;
   }
 
-  .step p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; }
+  .index p { color: var(--ink-soft); font-weight: 300; font-size: 0.98rem; }
 
-  /* INDUSTRIES */
-  #industries { background: var(--navy-mid); }
+  @media (hover: hover) {
+    .index li:hover { padding-left: 0.75rem; }
+    .index li:hover h3 { color: var(--accent); }
+  }
 
-  .industries-header {
+  /* Approach — process line */
+  .process {
+    list-style: none;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: end;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3.5rem 3rem;
+  }
+
+  .process li { position: relative; padding-top: 1.5rem; }
+
+  .process li::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: var(--line-strong);
+  }
+
+  .process li::after {
+    content: '';
+    position: absolute;
+    top: -3px; left: 0;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .process .label { display: block; margin-bottom: 0.75rem; }
+
+  .process h3 {
+    font-weight: 500;
+    font-size: 1.3rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .process p { color: var(--ink-soft); font-weight: 300; }
+
+  .pullquote {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    max-width: 30ch;
     margin-bottom: 3.5rem;
   }
 
-  .industries-list {
+  .pullquote em { color: var(--accent); }
+
+  /* Industries — typographic grid, no boxes */
+  .sectors {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 3rem;
   }
 
-  .industry-item {
-    padding: 1.75rem 1.5rem;
-    border: 1px solid rgba(201, 168, 76, 0.1);
-    transition: border-color 0.3s, background 0.3s;
-    cursor: default;
+  .sector {
+    padding: 1.6rem 0;
+    border-top: 1px solid var(--line);
   }
 
-  .industry-item:hover {
-    border-color: rgba(201, 168, 76, 0.4);
-    background: rgba(201, 168, 76, 0.04);
-  }
-
-  .industry-code {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--gold);
-    letter-spacing: 0.15em;
-    margin-bottom: 0.75rem;
-    display: block;
-  }
-
-  .industry-item h4 {
-    font-size: 0.9rem;
-    color: var(--white);
+  .sector h3 {
     font-weight: 500;
-    margin-bottom: 0.4rem;
+    font-size: 1.15rem;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.35rem;
   }
 
-  .industry-item p {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-  }
-
-  /* TESTIMONIALS */
-  #testimonials { text-align: center; }
-
-  .testimonials-header { margin-bottom: 3.5rem; }
-  .testimonials-header .section-lead { margin: 0 auto; }
-
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 3rem;
-  }
-
-  .testimonial-card {
-    text-align: left;
-    padding: 2rem;
-    background: var(--navy-mid);
-    border: 1px solid rgba(201, 168, 76, 0.1);
-    position: relative;
-  }
-
-  .testimonial-card::before {
-    content: '\201C';
-    position: absolute;
-    top: 1rem;
-    right: 1.5rem;
-    font-family: 'Playfair Display', serif;
-    font-size: 5rem;
-    color: rgba(201, 168, 76, 0.12);
-    line-height: 1;
-  }
-
-  .testimonial-text {
-    font-size: 0.9rem;
-    color: var(--text-body);
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-    font-style: italic;
-  }
-
-  .testimonial-author {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .author-avatar {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: var(--navy-light);
-    border: 1px solid rgba(201, 168, 76, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--gold);
-  }
-
-  .author-name {
-    font-size: 0.875rem;
-    color: var(--white);
-    font-weight: 500;
-  }
-
-  .author-role {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-  }
+  .sector p { color: var(--muted); font-size: 0.92rem; }
 
   /* CONTACT */
-  #contact { background: var(--navy-mid); }
+  .contact { padding-top: clamp(5rem, 10vw, 9rem); padding-bottom: clamp(4rem, 8vw, 6rem); }
 
-  .contact-inner {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 5rem;
-    align-items: start;
-  }
-
-  .contact-info h2 { margin-bottom: 1rem; }
-  .contact-details { margin-top: 2.5rem; }
-
-  .contact-item {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    align-items: flex-start;
-  }
-
-  .contact-item-icon {
-    width: 34px;
-    height: 34px;
-    border: 1px solid rgba(201, 168, 76, 0.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-size: 14px;
-  }
-
-  .contact-item-text {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-  }
-
-  .contact-item-text strong {
-    display: block;
-    color: var(--white);
+  .contact-title {
     font-weight: 500;
-    margin-bottom: 0.2rem;
-    font-size: 0.8rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    font-size: clamp(2.6rem, 7.5vw, 6.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    max-width: 13ch;
+    margin: 1rem 0 clamp(3rem, 6vw, 5rem);
   }
 
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-  }
-
-  .form-row {
+  .contact-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.2rem;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: 3rem clamp(2rem, 6vw, 6rem);
   }
 
-  .form-field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
+  .contact-lead { color: var(--ink-soft); font-weight: 300; max-width: 36ch; margin-bottom: 2.5rem; }
 
-  label {
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-family: 'DM Mono', monospace;
-  }
+  .details { list-style: none; display: grid; gap: 1.5rem; }
+  .details .label { display: block; margin-bottom: 0.25rem; }
+  .details a, .details span:not(.label) { font-size: 1.02rem; text-decoration: none; }
+  .details a { border-bottom: 1px solid var(--line-strong); transition: border-color 0.2s, color 0.2s; }
+  .details a:hover { color: var(--accent); border-color: var(--accent); }
+
+  .contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem 2rem; }
+  .form-field { display: flex; flex-direction: column; gap: 0.35rem; }
+  .form-field.full { grid-column: 1 / -1; }
+
+  label { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 
   input, select, textarea {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(208, 217, 232, 0.12);
-    color: var(--white);
-    padding: 0.75rem 1rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--line-strong);
+    border-radius: 0;
+    color: var(--ink);
+    padding: 0.6rem 0;
+    font: 400 1.05rem var(--sans);
     outline: none;
     transition: border-color 0.2s;
     -webkit-appearance: none;
     appearance: none;
+    width: 100%;
   }
 
-  input:focus, select:focus, textarea:focus {
-    border-color: rgba(201, 168, 76, 0.5);
+  input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.6; }
+  input:focus, select:focus, textarea:focus { border-bottom-color: var(--accent); }
+  input:focus-visible, select:focus-visible, textarea:focus-visible { box-shadow: 0 1px 0 0 var(--accent); }
+
+  select {
+    background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+    background-position: calc(100% - 10px) 55%, calc(100% - 5px) 55%;
+    background-size: 5px 5px;
+    background-repeat: no-repeat;
+    cursor: pointer;
   }
 
-  select option { background: var(--navy-mid); }
+  select option { background: var(--bg); color: var(--ink); }
   textarea { resize: vertical; min-height: 120px; }
 
-  .form-submit {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 0.5rem;
-  }
+  .form-submit { grid-column: 1 / -1; display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; margin-top: 0.5rem; }
+  .form-submit small { color: var(--muted); font-size: 0.82rem; }
 
-  /* Form success message */
-  .form-success {
-    display: none;
-    padding: 2rem;
-    border: 1px solid rgba(78, 205, 196, 0.3);
-    background: rgba(78, 205, 196, 0.06);
-    text-align: center;
-  }
+  .form-success { display: none; padding: 2rem 0; border-top: 1px solid var(--accent); }
+  .form-success h3 { font-family: var(--serif); font-weight: 400; font-size: 2.2rem; margin-bottom: 0.5rem; }
+  .form-success p { color: var(--ink-soft); }
 
-  .form-success h4 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    color: var(--white);
-    margin-bottom: 0.5rem;
-  }
-
-  .form-success p {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-  }
-
-  .form-success .success-icon {
-    font-size: 2rem;
-    margin-bottom: 0.75rem;
-    color: #4ecdc4;
-  }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
   /* FOOTER */
-  footer {
-    border-top: 1px solid rgba(201, 168, 76, 0.12);
-    padding: 3rem 6%;
+  footer { padding: 2rem 0 2.5rem; border-top: 1px solid var(--line); }
+
+  .footer-mark {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 12.5vw, 11rem);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    opacity: 0.9;
+    padding: clamp(2rem, 5vw, 4rem) 0;
+  }
+
+  .footer-mark em { color: var(--accent); }
+
+  .footer-row {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
+    gap: 1rem 2rem;
     flex-wrap: wrap;
+    font-size: 0.84rem;
+    color: var(--muted);
   }
 
-  .footer-brand {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    color: var(--white);
-    font-weight: 600;
-  }
+  .footer-row ul { list-style: none; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .footer-row a { text-decoration: none; transition: color 0.2s; }
+  .footer-row a:hover { color: var(--ink); }
 
-  .footer-brand span {
-    display: block;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    font-weight: 400;
-    margin-top: 0.25rem;
-    letter-spacing: 0.05em;
-  }
+  /* REVEAL — only when JS has run and motion is allowed */
+  .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(.2,.7,.2,1); }
+  .js .reveal.in { opacity: 1; transform: none; }
 
-  .footer-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
-
-  .footer-links a {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .footer-links a:hover { color: var(--gold); }
-
-  .footer-copy {
-    font-size: 0.78rem;
-    color: var(--text-muted);
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .js .reveal { opacity: 1; transform: none; transition: none; }
+    .index li, .btn, .btn .arrow { transition: none; }
   }
 
   /* RESPONSIVE */
   @media (max-width: 900px) {
-    nav ul { display: none; }
-    .services-intro, .services-grid, #approach, .industries-header,
-    .testimonials-grid, .contact-inner { grid-template-columns: 1fr; }
-    .industries-list { grid-template-columns: repeat(2, 1fr); }
-    .stats-bar { grid-template-columns: repeat(2, 1fr); }
-    .stat-item:nth-child(2) { border-right: none; }
-    .form-row { grid-template-columns: 1fr; }
+    .menu-toggle { display: block; }
+    .nav-links {
+      position: absolute;
+      top: 4.5rem; left: 0; right: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.25rem;
+      padding: 1.5rem var(--gutter) 2rem;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+      display: none;
+    }
+    .nav.open .nav-links { display: flex; }
+    .nav.open { background: var(--bg); }
+
+    .hero-foot, .chapter, .contact-grid { grid-template-columns: 1fr; }
+    .chapter-head { position: static; }
+    .stats { grid-template-columns: repeat(2, 1fr); row-gap: 3rem; }
+    .index li { grid-template-columns: 2.5rem 1fr; }
+    .index p { grid-column: 2; }
+  }
+
+  @media (max-width: 600px) {
+    .process, .sectors, .contact-form { grid-template-columns: 1fr; }
+    .figure-meta { flex-direction: column; }
   }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
-  <a href="#" class="logo">
-    <div class="logo-mark">S³</div>
-    <div class="logo-text">Superior Statistical
-      <span>Services</span>
-    </div>
-  </a>
-  <ul>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#approach">Approach</a></li>
-    <li><a href="#industries">Industries</a></li>
-    <li><a href="#testimonials">Clients</a></li>
-    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
-  </ul>
-</nav>
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="Superior Statistical Services — home">
+      <span class="logo-mark">S³</span>
+      <span>Superior Statistical Services</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#industries">Industries</a></li>
+      <li><a href="#contact" class="nav-cta">Get in touch</a></li>
+    </ul>
+  </div>
+</header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">Data Analytics &amp; Research Consulting</div>
-    <h1>Turning Raw Data into<br /><em>Decisive Intelligence</em></h1>
-    <p class="hero-desc">Superior Statistical Services provides rigorous statistical analysis, modelling, and research consulting to organisations that demand precision, clarity, and actionable insight.</p>
-    <div class="hero-actions">
-      <a href="#contact" class="btn-primary">Start a Conversation</a>
-      <a href="#services" class="btn-secondary">Our Services</a>
-    </div>
-  </div>
-</section>
+<main id="top">
 
-<!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="stat-item">
-    <div class="stat-number">10+</div>
-    <div class="stat-label">Years of Experience</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-number">350+</div>
-    <div class="stat-label">Projects Delivered</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-number">98%</div>
-    <div class="stat-label">Client Retention</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-number">14</div>
-    <div class="stat-label">Industry Sectors</div>
-  </div>
-</div>
-
-<!-- SERVICES -->
-<section id="services">
-  <div class="services-intro">
-    <div>
-      <span class="section-tag">What We Do</span>
-      <h2>Statistical Services Built for Complexity</h2>
-    </div>
-    <p class="services-note">From exploratory data analysis to advanced predictive modelling, our work is grounded in mathematical rigour and delivered with practical clarity for decision-makers at every level.</p>
-  </div>
-
-  <div class="services-grid">
-    <div class="service-card">
-      <div class="service-icon">∑</div>
-      <h3>Statistical Analysis</h3>
-      <p>Descriptive and inferential statistics, hypothesis testing, ANOVA, regression, and multivariate analysis tailored to your research questions.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">◈</div>
-      <h3>Predictive Modelling</h3>
-      <p>Machine learning, forecasting, time-series analysis, and risk modelling to anticipate outcomes and optimise decision-making.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">≡</div>
-      <h3>Survey Design &amp; Analysis</h3>
-      <p>Expert questionnaire design, sampling strategy, weighting, and full statistical analysis of survey data at any scale.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">⌬</div>
-      <h3>Research Consulting</h3>
-      <p>End-to-end support for academic and corporate research — from study design and power analysis through to peer-review-ready reporting.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">⊛</div>
-      <h3>Data Visualisation</h3>
-      <p>Interactive dashboards and publication-quality charts that communicate statistical findings to technical and non-technical audiences alike.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">∮</div>
-      <h3>Expert Witnessing</h3>
-      <p>Credible, court-ready statistical evidence and expert testimony for litigation, regulatory proceedings, and dispute resolution.</p>
-    </div>
-  </div>
-</section>
-
-<!-- APPROACH -->
-<section id="approach">
-  <div class="approach-visual">
-    <div class="regression-panel">
-      <div class="regression-header">
-        <div class="regression-label">Sample output — Treatment dose vs. patient recovery score</div>
-        <div class="regression-stats">
-          <span>R² = <em>0.847</em></span>
-          <span>β = <em>2.31</em></span>
-          <span>SE = <em>0.18</em></span>
-          <span>p-value <em>&lt; 0.001</em></span>
-          <span>n = <em>48</em></span>
-        </div>
+  <!-- HERO -->
+  <section class="hero wrap">
+    <p class="label reveal">Data Analytics &amp; Research Consulting — Adelaide, Australia</p>
+    <h1 class="reveal" style="margin-top:1.5rem">Turning raw data into <span class="serif-em">decisive intelligence.</span></h1>
+    <div class="hero-foot reveal">
+      <p class="hero-desc">Rigorous statistical analysis, modelling, and research consulting for organisations that demand precision, clarity, and actionable insight.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-solid">Start a conversation <span class="arrow" aria-hidden="true">→</span></a>
+        <a href="#services" class="btn btn-ghost">Our services</a>
       </div>
-      <div class="chart-canvas-wrap">
+    </div>
+
+    <figure class="figure reveal">
+      <figcaption class="figure-meta">
+        <span class="label">Sample output — treatment dose vs. patient recovery score</span>
+        <span class="figure-stats">
+          <span>R² <b>0.847</b></span>
+          <span>β <b>2.31</b></span>
+          <span>SE <b>0.18</b></span>
+          <span>p <b>&lt; 0.001</b></span>
+          <span>n <b>48</b></span>
+        </span>
+      </figcaption>
+      <div class="chart-wrap">
         <canvas id="regressionChart" role="img" aria-label="Scatter plot showing treatment dose on the x-axis and patient recovery score on the y-axis, with a fitted regression line and shaded 95% confidence interval. The relationship is strongly positive with R-squared of 0.847.">48 patient observations. Fitted regression line: β=2.31, R²=0.847, p&lt;0.001. Higher treatment doses are associated with significantly higher recovery scores.</canvas>
       </div>
-      <div class="regression-legend">
-        <div class="legend-item"><div class="legend-line"></div> Fitted line</div>
-        <div class="legend-item"><div class="legend-band"></div> 95% CI</div>
-        <div class="legend-item"><div class="legend-dot"></div> Observed</div>
+      <div class="figure-legend" aria-hidden="true">
+        <span><i class="key-line"></i>Fitted line</span>
+        <span><i class="key-band"></i>95% CI</span>
+        <span><i class="key-dot"></i>Observed</span>
       </div>
+    </figure>
+  </section>
+
+  <!-- STATS -->
+  <section class="wrap" aria-label="At a glance">
+    <div class="stats">
+      <div class="reveal"><div class="stat-num">10<sup>+</sup></div><div class="stat-label">Years of experience</div></div>
+      <div class="reveal"><div class="stat-num">350<sup>+</sup></div><div class="stat-label">Projects delivered</div></div>
+      <div class="reveal"><div class="stat-num">98<sup>%</sup></div><div class="stat-label">Client retention</div></div>
+      <div class="reveal"><div class="stat-num">14</div><div class="stat-label">Industry sectors</div></div>
     </div>
-  </div>
+  </section>
 
-  <div class="approach-content">
-    <span class="section-tag">How We Work</span>
-    <h2>Rigour at Every Stage of the Analysis</h2>
-    <p class="section-lead">We believe great statistical work demands as much rigour in communication as in computation.</p>
+  <!-- SERVICES -->
+  <section id="services" class="wrap">
+    <div class="chapter">
+      <div class="chapter-head reveal">
+        <span class="label">What we do</span>
+        <h2>Statistical services built for <span class="serif-em">complexity.</span></h2>
+        <p>From exploratory data analysis to advanced predictive modelling, our work is grounded in mathematical rigour and delivered with practical clarity for decision-makers at every level.</p>
+      </div>
+      <ol class="index">
+        <li class="reveal">
+          <h3>Statistical Analysis</h3>
+          <p>Descriptive and inferential statistics, hypothesis testing, ANOVA, regression, and multivariate analysis tailored to your research questions.</p>
+        </li>
+        <li class="reveal">
+          <h3>Predictive Modelling</h3>
+          <p>Machine learning, forecasting, time-series analysis, and risk modelling to anticipate outcomes and optimise decision-making.</p>
+        </li>
+        <li class="reveal">
+          <h3>Survey Design &amp; Analysis</h3>
+          <p>Expert questionnaire design, sampling strategy, weighting, and full statistical analysis of survey data at any scale.</p>
+        </li>
+        <li class="reveal">
+          <h3>Research Consulting</h3>
+          <p>End-to-end support for academic and corporate research — from study design and power analysis through to peer-review-ready reporting.</p>
+        </li>
+        <li class="reveal">
+          <h3>Data Visualisation</h3>
+          <p>Interactive dashboards and publication-quality charts that communicate statistical findings to technical and non-technical audiences alike.</p>
+        </li>
+        <li class="reveal">
+          <h3>Expert Witnessing</h3>
+          <p>Credible, court-ready statistical evidence and expert testimony for litigation, regulatory proceedings, and dispute resolution.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
 
-    <div class="approach-steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div>
-          <h4>Discovery &amp; Scoping</h4>
+  <!-- APPROACH -->
+  <section id="approach" class="wrap">
+    <div class="chapter">
+      <div class="chapter-head reveal">
+        <span class="label">How we work</span>
+        <h2>Rigour at every stage of the <span class="serif-em">analysis.</span></h2>
+      </div>
+      <div>
+      <p class="pullquote reveal">Great statistical work demands as much rigour in <em>communication</em> as in computation.</p>
+      <ol class="process">
+        <li class="reveal">
+          <span class="label">Step 01</span>
+          <h3>Discovery &amp; Scoping</h3>
           <p>We invest time understanding your objectives, data landscape, and the decisions the analysis must inform.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div>
-          <h4>Data Preparation</h4>
+        </li>
+        <li class="reveal">
+          <span class="label">Step 02</span>
+          <h3>Data Preparation</h3>
           <p>Cleaning, validation, and transformation with full audit trails — because the quality of analysis depends on the quality of data.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div>
-          <h4>Analysis &amp; Modelling</h4>
+        </li>
+        <li class="reveal">
+          <span class="label">Step 03</span>
+          <h3>Analysis &amp; Modelling</h3>
           <p>Selecting and applying the most appropriate statistical methods, with transparent assumptions and sensitivity testing throughout.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <div>
-          <h4>Reporting &amp; Presentation</h4>
+        </li>
+        <li class="reveal">
+          <span class="label">Step 04</span>
+          <h3>Reporting &amp; Presentation</h3>
           <p>Clear, structured reports and presentations that translate statistical findings into actionable intelligence for your team.</p>
-        </div>
+        </li>
+      </ol>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- INDUSTRIES -->
-<section id="industries">
-  <div class="industries-header">
-    <div>
-      <span class="section-tag">Who We Serve</span>
-      <h2>Deep Expertise Across Key Sectors</h2>
-    </div>
-    <p class="section-lead">We bring sector-specific knowledge to every engagement, ensuring our statistical approach accounts for the nuances of your industry.</p>
-  </div>
-
-  <div class="industries-list">
-    <div class="industry-item">
-      <span class="industry-code">SEC.01</span>
-      <h4>Healthcare &amp; Pharma</h4>
-      <p>Clinical trials, epidemiology, health outcomes research and regulatory submissions.</p>
-    </div>
-    <div class="industry-item">
-      <span class="industry-code">SEC.02</span>
-      <h4>Finance &amp; Insurance</h4>
-      <p>Risk modelling, actuarial analysis, portfolio optimisation and fraud detection.</p>
-    </div>
-    <div class="industry-item">
-      <span class="industry-code">SEC.03</span>
-      <h4>Government &amp; Policy</h4>
-      <p>Census analysis, programme evaluation, economic modelling and public reporting.</p>
-    </div>
-    <div class="industry-item">
-      <span class="industry-code">SEC.04</span>
-      <h4>Education &amp; Research</h4>
-      <p>Psychometrics, longitudinal studies, meta-analysis and academic publication support.</p>
-    </div>
-    <div class="industry-item">
-      <span class="industry-code">SEC.05</span>
-      <h4>Retail &amp; Consumer</h4>
-      <p>Demand forecasting, customer segmentation, A/B testing and pricing analysis.</p>
-    </div>
-    <div class="industry-item">
-      <span class="industry-code">SEC.06</span>
-      <h4>Technology &amp; SaaS</h4>
-      <p>Product analytics, user behaviour modelling and growth forecasting.</p>
-    </div>
-    <div class="industry-item">
-      <span class="industry-code">SEC.07</span>
-      <h4>Legal &amp; Compliance</h4>
-      <p>Expert witnessing, damages quantification and regulatory compliance analytics.</p>
-    </div>
-    <div class="industry-item">
-      <span class="industry-code">SEC.08</span>
-      <h4>Not-for-Profit</h4>
-      <p>Impact evaluation, grant reporting, social research and stakeholder surveys.</p>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section id="testimonials">
-  <div class="testimonials-header">
-    <span class="section-tag">Client Feedback</span>
-    <h2>Trusted by Organisations That Demand Precision</h2>
-    <p class="section-lead">What our clients say about working with Superior Statistical Services.</p>
-  </div>
-
-  <div class="testimonials-grid">
-    <div class="testimonial-card">
-      <p class="testimonial-text">The team's ability to distil complex survival analysis into a narrative our board could act on was genuinely impressive. The final report stood up to intense regulatory scrutiny.</p>
-      <div class="testimonial-author">
-        <div class="author-avatar">DM</div>
-        <div>
-          <div class="author-name">Dr. D. Morrison</div>
-          <div class="author-role">Head of Clinical Affairs, BioMedica</div>
-        </div>
+  <!-- INDUSTRIES -->
+  <section id="industries" class="wrap">
+    <div class="chapter">
+      <div class="chapter-head reveal">
+        <span class="label">Who we serve</span>
+        <h2>Deep expertise across key <span class="serif-em">sectors.</span></h2>
+        <p>We bring sector-specific knowledge to every engagement, ensuring our statistical approach accounts for the nuances of your industry.</p>
+      </div>
+      <div class="sectors">
+        <div class="sector reveal"><h3>Healthcare &amp; Pharma</h3><p>Clinical trials, epidemiology, health outcomes research and regulatory submissions.</p></div>
+        <div class="sector reveal"><h3>Finance &amp; Insurance</h3><p>Risk modelling, actuarial analysis, portfolio optimisation and fraud detection.</p></div>
+        <div class="sector reveal"><h3>Government &amp; Policy</h3><p>Census analysis, programme evaluation, economic modelling and public reporting.</p></div>
+        <div class="sector reveal"><h3>Education &amp; Research</h3><p>Psychometrics, longitudinal studies, meta-analysis and academic publication support.</p></div>
+        <div class="sector reveal"><h3>Retail &amp; Consumer</h3><p>Demand forecasting, customer segmentation, A/B testing and pricing analysis.</p></div>
+        <div class="sector reveal"><h3>Technology &amp; SaaS</h3><p>Product analytics, user behaviour modelling and growth forecasting.</p></div>
+        <div class="sector reveal"><h3>Legal &amp; Compliance</h3><p>Expert witnessing, damages quantification and regulatory compliance analytics.</p></div>
+        <div class="sector reveal"><h3>Not-for-Profit</h3><p>Impact evaluation, grant reporting, social research and stakeholder surveys.</p></div>
       </div>
     </div>
-    <div class="testimonial-card">
-      <p class="testimonial-text">We engaged SSS for an expert witness matter involving insurance fraud. Their statistical evidence was airtight and proved decisive in the court proceedings.</p>
-      <div class="testimonial-author">
-        <div class="author-avatar">SK</div>
-        <div>
-          <div class="author-name">S. Krishnamurthy</div>
-          <div class="author-role">Senior Partner, Apex Legal Group</div>
-        </div>
-      </div>
-    </div>
-    <div class="testimonial-card">
-      <p class="testimonial-text">From survey design to final dashboard, the project was handled with exceptional care. The insights reshaped our product roadmap and led directly to a 23% uplift in retention.</p>
-      <div class="testimonial-author">
-        <div class="author-avatar">TW</div>
-        <div>
-          <div class="author-name">T. Whitfield</div>
-          <div class="author-role">Chief Product Officer, Nexara Technologies</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-inner">
-    <div class="contact-info">
-      <span class="section-tag">Get in Touch</span>
-      <h2>Let's Discuss Your Project</h2>
-      <p class="section-lead">Whether you have a defined brief or are still scoping the problem, we're happy to start with a no-obligation conversation.</p>
+  <!-- CONTACT -->
+  <section id="contact" class="contact wrap">
+    <span class="label reveal">Get in touch</span>
+    <h2 class="contact-title reveal">Let's discuss your <span class="serif-em">project.</span></h2>
 
-      <div class="contact-details">
-        <div class="contact-item">
-          <div class="contact-item-icon">✉</div>
-          <div class="contact-item-text">
-            <strong>Email</strong>
-            admin@superiorstatistical.com.au
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-item-icon">✆</div>
-          <div class="contact-item-text">
-            <strong>Phone</strong>
-            +61 432 903 189
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-item-icon">◎</div>
-          <div class="contact-item-text">
-            <strong>Location</strong>
-            Adelaide, South Australia &amp; available nationally
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-item-icon">◷</div>
-          <div class="contact-item-text">
-            <strong>Response Time</strong>
-            We respond to all enquiries within one business day.
-          </div>
-        </div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <p class="contact-lead">Whether you have a defined brief or are still scoping the problem, we're happy to start with a no-obligation conversation.</p>
+        <ul class="details">
+          <li><span class="label">Email</span><a href="mailto:admin@superiorstatistical.com.au">admin@superiorstatistical.com.au</a></li>
+          <li><span class="label">Phone</span><a href="tel:+61432903189">+61 432 903 189</a></li>
+          <li><span class="label">Location</span><span>Adelaide, South Australia &amp; available nationally</span></li>
+          <li><span class="label">Response time</span><span>Within one business day</span></li>
+        </ul>
       </div>
-    </div>
 
-    <!-- Form and success message share the same container -->
-    <div class="contact-form-wrap">
-      <form id="contactForm" class="contact-form">
-        <input type="text" name="_gotcha" style="display:none" />
-        <div class="form-row">
+      <div class="reveal">
+        <form id="contactForm" class="contact-form">
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
           <div class="form-field">
-            <label for="fname">First Name</label>
-            <input type="text" id="fname" name="first_name" placeholder="Jane" required />
+            <label for="fname">First name</label>
+            <input type="text" id="fname" name="first_name" placeholder="Jane" autocomplete="given-name" required />
           </div>
           <div class="form-field">
-            <label for="lname">Last Name</label>
-            <input type="text" id="lname" name="last_name" placeholder="Smith" required />
+            <label for="lname">Last name</label>
+            <input type="text" id="lname" name="last_name" placeholder="Smith" autocomplete="family-name" required />
           </div>
-        </div>
-        <div class="form-field">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="jane@organisation.com" required />
-        </div>
-        <div class="form-field">
-          <label for="org">Organisation</label>
-          <input type="text" id="org" name="organisation" placeholder="Your company or institution" />
-        </div>
-        <div class="form-field">
-          <label for="service">Service of Interest</label>
-          <select id="service" name="service">
-            <option value="" disabled selected>Select a service…</option>
-            <option>Statistical Analysis</option>
-            <option>Predictive Modelling</option>
-            <option>Survey Design &amp; Analysis</option>
-            <option>Research Consulting</option>
-            <option>Data Visualisation</option>
-            <option>Expert Witnessing</option>
-            <option>Other / Not Sure</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <label for="message">Tell Us About Your Project</label>
-          <textarea id="message" name="message" placeholder="Briefly describe your data, your questions, and your timeline…"></textarea>
-        </div>
-        <div class="form-submit">
-          <button type="submit" id="submitBtn" class="btn-primary">Send Enquiry</button>
-          <span style="font-size: 0.78rem; color: var(--text-muted);">We'll respond within one business day.</span>
-        </div>
-      </form>
+          <div class="form-field">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" placeholder="jane@organisation.com" autocomplete="email" required />
+          </div>
+          <div class="form-field">
+            <label for="org">Organisation</label>
+            <input type="text" id="org" name="organisation" placeholder="Company or institution" autocomplete="organization" />
+          </div>
+          <div class="form-field full">
+            <label for="service">Service of interest</label>
+            <select id="service" name="service">
+              <option value="" disabled selected>Select a service…</option>
+              <option>Statistical Analysis</option>
+              <option>Predictive Modelling</option>
+              <option>Survey Design &amp; Analysis</option>
+              <option>Research Consulting</option>
+              <option>Data Visualisation</option>
+              <option>Expert Witnessing</option>
+              <option>Other / Not Sure</option>
+            </select>
+          </div>
+          <div class="form-field full">
+            <label for="message">Tell us about your project</label>
+            <textarea id="message" name="message" placeholder="Briefly describe your data, your questions, and your timeline…"></textarea>
+          </div>
+          <div class="form-submit">
+            <button type="submit" id="submitBtn" class="btn btn-solid">Send enquiry <span class="arrow" aria-hidden="true">→</span></button>
+            <small>We'll respond within one business day.</small>
+          </div>
+        </form>
 
-      <!-- Success message shown after submission -->
-      <div class="form-success" id="formSuccess">
-        <div class="success-icon">✓</div>
-        <h4>Enquiry Sent</h4>
-        <p>Thank you for reaching out. We'll be in touch within one business day.</p>
+        <div class="form-success" id="formSuccess" role="status">
+          <h3>Enquiry sent.</h3>
+          <p>Thank you for reaching out. We'll be in touch within one business day.</p>
+        </div>
       </div>
     </div>
+  </section>
 
-  </div>
-</section>
+</main>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-brand">
-    Superior Statistical Services
-    <span>Precision Analysis. Clear Insight. Sound Decisions.</span>
+  <div class="wrap">
+    <div class="footer-mark" aria-hidden="true">Precision. <em>Clarity.</em></div>
+    <div class="footer-row">
+      <span>© 2026 Superior Statistical Services. Precision analysis, clear insight, sound decisions.</span>
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#approach">Approach</a></li>
+        <li><a href="#industries">Industries</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
   </div>
-  <ul class="footer-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#approach">Approach</a></li>
-    <li><a href="#industries">Industries</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <div class="footer-copy">© 2026 Superior Statistical Services. All rights reserved.</div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
+  document.documentElement.classList.add('js');
+
+  /* ---- NAV ---- */
+  const nav = document.getElementById('nav');
+  const menuToggle = document.getElementById('menuToggle');
+
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  menuToggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', open);
+    menuToggle.textContent = open ? 'Close' : 'Menu';
+  });
+
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.textContent = 'Menu';
+    });
+  });
+
+  /* ---- SCROLL REVEAL ---- */
+  const reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('in'); io.unobserve(entry.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    reveals.forEach(el => io.observe(el));
+  } else {
+    reveals.forEach(el => el.classList.add('in'));
+  }
 
   /* ---- CONTACT FORM — AJAX submission ---- */
   const form = document.getElementById('contactForm');
   const successMsg = document.getElementById('formSuccess');
   const submitBtn = document.getElementById('submitBtn');
+  const submitLabel = submitBtn.innerHTML;
 
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -1204,12 +895,12 @@
         successMsg.style.display = 'block';
       } else {
         /* Re-enable button and show error */
-        submitBtn.textContent = 'Send Enquiry';
+        submitBtn.innerHTML = submitLabel;
         submitBtn.disabled = false;
         alert('Something went wrong. Please try again or email us directly at admin@superiorstatistical.com.au');
       }
     } catch (err) {
-      submitBtn.textContent = 'Send Enquiry';
+      submitBtn.innerHTML = submitLabel;
       submitBtn.disabled = false;
       alert('Something went wrong. Please try again or email us directly at admin@superiorstatistical.com.au');
     }
@@ -1254,37 +945,50 @@
     const se = s * Math.sqrt(1 / n + (x - xm) ** 2 / sxx);
     return { x: parseFloat(x.toFixed(3)), y: parseFloat((b0 + b1 * x - t95 * se).toFixed(3)) };
   });
-  const ciBand = [...ciUpper, ...[...ciLower].reverse()];
 
-  new Chart(document.getElementById('regressionChart'), {
-    type: 'scatter',
-    data: {
-      datasets: [
-        { type: 'line', label: '95% CI', data: ciBand, fill: true, backgroundColor: 'rgba(201,168,76,0.13)', borderColor: 'transparent', pointRadius: 0, tension: 0.3, order: 3 },
-        { type: 'line', label: 'Fitted line', data: lineData, fill: false, borderColor: '#c9a84c', borderWidth: 2, pointRadius: 0, tension: 0.2, order: 2 },
-        { type: 'scatter', label: 'Observed', data: pts, backgroundColor: 'rgba(78,205,196,0.78)', borderColor: 'rgba(78,205,196,0.25)', borderWidth: 1, pointRadius: 4, order: 1 }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: { label: ctx => ctx.dataset.label === 'Observed' ? `Dose: ${ctx.parsed.x.toFixed(1)} mg/kg  |  Score: ${ctx.parsed.y.toFixed(1)}` : null } }
+  /* Chart colours follow the page's light/dark tokens */
+  const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const mono = { size: 10, family: "'Geist Mono', monospace" };
+
+  function chartColours() {
+    return { accent: css('--accent'), soft: css('--band'), point: css('--point'), muted: css('--muted'), line: css('--line') };
+  }
+
+  function buildChart() {
+    const c = chartColours();
+    return new Chart(document.getElementById('regressionChart'), {
+      type: 'scatter',
+      data: {
+        datasets: [
+          { type: 'line', label: 'CI lower', data: ciLower, showLine: true, fill: false, borderColor: 'transparent', pointRadius: 0, pointHitRadius: 0, order: 4 },
+          { type: 'line', label: '95% CI', data: ciUpper, showLine: true, fill: '-1', backgroundColor: c.soft, borderColor: 'transparent', pointRadius: 0, pointHitRadius: 0, order: 3 },
+          { type: 'line', label: 'Fitted line', data: lineData, fill: false, borderColor: c.accent, borderWidth: 2, pointRadius: 0, tension: 0.2, order: 2 },
+          { type: 'scatter', label: 'Observed', data: pts, backgroundColor: c.point, borderColor: 'transparent', pointRadius: 4, pointHoverRadius: 6, order: 1 }
+        ]
       },
-      scales: {
-        x: { type: 'linear', title: { display: true, text: 'Treatment dose (mg/kg)', color: '#8a9bb5', font: { size: 11, family: "'DM Mono', monospace" } }, ticks: { color: '#8a9bb5', font: { size: 10, family: "'DM Mono', monospace" }, callback: v => v.toFixed(0) }, grid: { color: 'rgba(201,168,76,0.07)' }, border: { color: 'rgba(201,168,76,0.2)' }, min: 0, max: 11 },
-        y: { title: { display: true, text: 'Patient recovery score', color: '#8a9bb5', font: { size: 11, family: "'DM Mono', monospace" } }, ticks: { color: '#8a9bb5', font: { size: 10, family: "'DM Mono', monospace" }, callback: v => v.toFixed(0) }, grid: { color: 'rgba(201,168,76,0.07)' }, border: { color: 'rgba(201,168,76,0.2)' } }
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? false : { duration: 900 },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            filter: item => item.dataset.label === 'Observed',
+            callbacks: { label: ctx => `Dose: ${ctx.parsed.x.toFixed(1)} mg/kg  |  Score: ${ctx.parsed.y.toFixed(1)}` }
+          }
+        },
+        scales: {
+          x: { type: 'linear', title: { display: true, text: 'Treatment dose (mg/kg)', color: c.muted, font: mono }, ticks: { color: c.muted, font: mono, callback: v => v.toFixed(0) }, grid: { display: false }, border: { color: c.line }, min: 0, max: 11 },
+          y: { title: { display: true, text: 'Patient recovery score', color: c.muted, font: mono }, ticks: { color: c.muted, font: mono, callback: v => v.toFixed(0), maxTicksLimit: 6 }, grid: { color: c.line }, border: { display: false } }
+        }
       }
-    }
-  });
-
-  /* ---- SMOOTH SCROLL ---- */
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', e => {
-      const target = document.querySelector(link.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     });
+  }
+
+  let chart = buildChart();
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    chart.destroy();
+    chart = buildChart();
   });
 </script>
 
