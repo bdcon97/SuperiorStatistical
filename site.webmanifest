@@ -1,0 +1,14 @@
+{
+  "name": "Superior Statistical Services",
+  "short_name": "Superior Stats",
+  "description": "Rigorous statistical analysis, modelling, and research consulting across Australia.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#f5f3ee",
+  "theme_color": "#f5f3ee",
+  "icons": [
+    { "src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
