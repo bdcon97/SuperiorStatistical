@@ -307,7 +307,7 @@
   .figure-insight strong { color: var(--ink); font-weight: 700; }
 
   /* STATS */
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; padding: clamp(4rem, 9vw, 7rem) 0; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); align-items: end; gap: 2rem; padding: clamp(4rem, 9vw, 7rem) 0; }
 
   .stat-num {
     font-family: var(--head);
@@ -319,6 +319,7 @@
   }
 
   .stat-num sup { font-weight: 700; color: var(--accent); font-size: 0.5em; vertical-align: 0.8em; margin-left: 0.05em; }
+  .stat-num.stat-word { font-size: clamp(2rem, 3.6vw, 3.1rem); }
   .stat-label { margin-top: 0.75rem; font-size: 0.9rem; color: var(--muted); }
 
   /* CHAPTERS */
@@ -627,10 +628,10 @@
     </figure>
 
     <div class="stats" aria-label="At a glance">
-      <div class="reveal"><div class="stat-num"><span class="count" data-to="10">10</span><sup>+</sup></div><div class="stat-label">Years of experience</div></div>
-      <div class="reveal"><div class="stat-num"><span class="count" data-to="350">350</span><sup>+</sup></div><div class="stat-label">Projects delivered</div></div>
-      <div class="reveal"><div class="stat-num"><span class="count" data-to="98">98</span><sup>%</sup></div><div class="stat-label">Client retention</div></div>
-      <div class="reveal"><div class="stat-num"><span class="count" data-to="14">14</span></div><div class="stat-label">Industry sectors</div></div>
+      <div class="reveal"><div class="stat-num stat-word">MBiostat</div><div class="stat-label">Master of Biostatistics</div></div>
+      <div class="reveal"><div class="stat-num"><span class="count" data-to="6">6</span></div><div class="stat-label">Specialist services</div></div>
+      <div class="reveal"><div class="stat-num"><span class="count" data-to="8">8</span></div><div class="stat-label">Industry sectors served</div></div>
+      <div class="reveal"><div class="stat-num"><span class="count" data-to="1">1</span></div><div class="stat-label">Business day to respond</div></div>
     </div>
   </section>
 
